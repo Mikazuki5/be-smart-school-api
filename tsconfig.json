@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+      "DOM",
+      "ES6",
+      "DOM.Iterable",
+      "ScriptHost",
+      "ES2016.Array.Include"
+    ],
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "incremental": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@controllers/*": ["./controllers/*"],
+      "@config/*": ["./config/*"],
+      "@middleware/*": ["./middleware/*"],
+      "@routes/*": ["./routes/*"],
+      "@utils/*": ["./utils/*"],
+      "@dto/*": ["./dto/*"],
+    },
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.tsx",
+    "**/*.test.ts"
+  ]
+}

@@ -1,0 +1,177 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+model User {
+  id       String   @id @default(uuid())
+  username String   @unique
+  email    String   @unique
+  password String
+  role     Role
+  student  Student?
+  teacher  Teacher?
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Department {
+  id      String  @id @default(uuid())
+  name    String
+  classes Class[]
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Class {
+  id           String     @id @default(uuid())
+  name         String
+  gradeLevel   Int
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  students     Student[]
+  schedules    Schedule[]
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Teacher {
+  id             String             @id @default(uuid())
+  firstName      String
+  lastName       String?
+  userId         String             @unique
+  user           User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjects       TeacherOnSubject[]
+  schedules      Schedule[]
+  address        String?
+  gender         String?
+  pictureProfile String?
+  religion       String?
+  phoneNumber    String?
+  status         String            @default("Honorer")
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Subject {
+  id        String             @id @default(uuid())
+  name      String
+  teachers  TeacherOnSubject[]
+  schedules Schedule[]
+  grades    Grade[]
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+// Many-to-Many Table: One Teacher can have many Subjects, One Subject can have many Teachers
+model TeacherOnSubject {
+  teacherId String
+  subjectId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+
+  @@id([teacherId, subjectId])
+}
+
+model Student {
+  id             String       @id @default(uuid())
+  firstName      String
+  lastName       String?
+  userId         String       @unique
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classId        String
+  class          Class        @relation(fields: [classId], references: [id], onDelete: Cascade)
+  attendance     Attendance[]
+  grades         Grade[]
+  payments       Payment[]
+  address        String?
+  gender         String?
+  pictureProfile String?
+  religion       String?
+  phoneNumber    String?
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Schedule {
+  id        String  @id @default(uuid())
+  day       String
+  startTime String
+  endTime   String
+  classId   String
+  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  teacherId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Grade {
+  id            String  @id @default(uuid())
+  assignment    Float   @default(0)
+  midtermExam   Float   @default(0) // UTS
+  finalExam     Float   @default(0) // UAS
+  practicalExam Float   @default(0)
+  semester      Int
+  studentId     String
+  student       Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subjectId     String
+  subject       Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
+
+model Attendance {
+  id        String   @id
+  date      DateTime @default(now())
+  status    String
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+
+  @@index([date, studentId])
+}
+
+model Payment {
+  id        String  @id @default(uuid())
+  month     String
+  year      Int
+  amount    Float
+  isPaid    Boolean @default(false)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) // Otomatis saat data dibuat
+  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+}
