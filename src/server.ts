@@ -10,6 +10,7 @@ import studentRoutes from '@routes/studentRoute.ts'
 import financeRoutes from '@routes/financeRoute.ts'
 import teacherRoutes from '@routes/teacherRoutes.ts'
 import attendanceRoutes from '@routes/attendanceRoutes';
+import { DashboardRoutes } from '@routes/index';
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use(express.json());
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: "SIS-SMART API (Node 22 + Prisma 6) is running!" });
 });
+
+app.use('/api/dashboard', DashboardRoutes)
 
 app.use('/api/auth', authRoutes);
 app.use('/api/academic', academicRoutes);

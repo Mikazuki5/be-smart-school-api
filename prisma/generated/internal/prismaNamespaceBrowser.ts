@@ -117,6 +117,7 @@ export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof Cl
 
 export const TeacherScalarFieldEnum = {
   id: 'id',
+  nip: 'nip',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
@@ -136,6 +137,7 @@ export type TeacherScalarFieldEnum = (typeof TeacherScalarFieldEnum)[keyof typeo
 export const SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -155,6 +157,7 @@ export type TeacherOnSubjectScalarFieldEnum = (typeof TeacherOnSubjectScalarFiel
 
 export const StudentScalarFieldEnum = {
   id: 'id',
+  nisn: 'nisn',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
