@@ -27,6 +27,8 @@ export type AggregateGrade = {
 }
 
 export type GradeAvgAggregateOutputType = {
+  dailyTask: number | null
+  practicalWork: number | null
   assignment: number | null
   midtermExam: number | null
   finalExam: number | null
@@ -35,6 +37,8 @@ export type GradeAvgAggregateOutputType = {
 }
 
 export type GradeSumAggregateOutputType = {
+  dailyTask: number | null
+  practicalWork: number | null
   assignment: number | null
   midtermExam: number | null
   finalExam: number | null
@@ -44,11 +48,14 @@ export type GradeSumAggregateOutputType = {
 
 export type GradeMinAggregateOutputType = {
   id: string | null
+  dailyTask: number | null
+  practicalWork: number | null
   assignment: number | null
   midtermExam: number | null
   finalExam: number | null
   practicalExam: number | null
   semester: number | null
+  schoolYear: string | null
   studentId: string | null
   subjectId: string | null
   createdAt: Date | null
@@ -57,11 +64,14 @@ export type GradeMinAggregateOutputType = {
 
 export type GradeMaxAggregateOutputType = {
   id: string | null
+  dailyTask: number | null
+  practicalWork: number | null
   assignment: number | null
   midtermExam: number | null
   finalExam: number | null
   practicalExam: number | null
   semester: number | null
+  schoolYear: string | null
   studentId: string | null
   subjectId: string | null
   createdAt: Date | null
@@ -70,11 +80,14 @@ export type GradeMaxAggregateOutputType = {
 
 export type GradeCountAggregateOutputType = {
   id: number
+  dailyTask: number
+  practicalWork: number
   assignment: number
   midtermExam: number
   finalExam: number
   practicalExam: number
   semester: number
+  schoolYear: number
   studentId: number
   subjectId: number
   createdAt: number
@@ -84,6 +97,8 @@ export type GradeCountAggregateOutputType = {
 
 
 export type GradeAvgAggregateInputType = {
+  dailyTask?: true
+  practicalWork?: true
   assignment?: true
   midtermExam?: true
   finalExam?: true
@@ -92,6 +107,8 @@ export type GradeAvgAggregateInputType = {
 }
 
 export type GradeSumAggregateInputType = {
+  dailyTask?: true
+  practicalWork?: true
   assignment?: true
   midtermExam?: true
   finalExam?: true
@@ -101,11 +118,14 @@ export type GradeSumAggregateInputType = {
 
 export type GradeMinAggregateInputType = {
   id?: true
+  dailyTask?: true
+  practicalWork?: true
   assignment?: true
   midtermExam?: true
   finalExam?: true
   practicalExam?: true
   semester?: true
+  schoolYear?: true
   studentId?: true
   subjectId?: true
   createdAt?: true
@@ -114,11 +134,14 @@ export type GradeMinAggregateInputType = {
 
 export type GradeMaxAggregateInputType = {
   id?: true
+  dailyTask?: true
+  practicalWork?: true
   assignment?: true
   midtermExam?: true
   finalExam?: true
   practicalExam?: true
   semester?: true
+  schoolYear?: true
   studentId?: true
   subjectId?: true
   createdAt?: true
@@ -127,11 +150,14 @@ export type GradeMaxAggregateInputType = {
 
 export type GradeCountAggregateInputType = {
   id?: true
+  dailyTask?: true
+  practicalWork?: true
   assignment?: true
   midtermExam?: true
   finalExam?: true
   practicalExam?: true
   semester?: true
+  schoolYear?: true
   studentId?: true
   subjectId?: true
   createdAt?: true
@@ -227,11 +253,14 @@ export type GradeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type GradeGroupByOutputType = {
   id: string
+  dailyTask: number
+  practicalWork: number
   assignment: number
   midtermExam: number
   finalExam: number
   practicalExam: number
   semester: number
+  schoolYear: string
   studentId: string
   subjectId: string
   createdAt: Date
@@ -263,11 +292,14 @@ export type GradeWhereInput = {
   OR?: Prisma.GradeWhereInput[]
   NOT?: Prisma.GradeWhereInput | Prisma.GradeWhereInput[]
   id?: Prisma.StringFilter<"Grade"> | string
+  dailyTask?: Prisma.FloatFilter<"Grade"> | number
+  practicalWork?: Prisma.FloatFilter<"Grade"> | number
   assignment?: Prisma.FloatFilter<"Grade"> | number
   midtermExam?: Prisma.FloatFilter<"Grade"> | number
   finalExam?: Prisma.FloatFilter<"Grade"> | number
   practicalExam?: Prisma.FloatFilter<"Grade"> | number
   semester?: Prisma.IntFilter<"Grade"> | number
+  schoolYear?: Prisma.StringFilter<"Grade"> | string
   studentId?: Prisma.StringFilter<"Grade"> | string
   subjectId?: Prisma.StringFilter<"Grade"> | string
   createdAt?: Prisma.DateTimeFilter<"Grade"> | Date | string
@@ -278,11 +310,14 @@ export type GradeWhereInput = {
 
 export type GradeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
   practicalExam?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  schoolYear?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -293,29 +328,36 @@ export type GradeOrderByWithRelationInput = {
 
 export type GradeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  studentId_subjectId_semester_schoolYear?: Prisma.GradeStudentIdSubjectIdSemesterSchoolYearCompoundUniqueInput
   AND?: Prisma.GradeWhereInput | Prisma.GradeWhereInput[]
   OR?: Prisma.GradeWhereInput[]
   NOT?: Prisma.GradeWhereInput | Prisma.GradeWhereInput[]
+  dailyTask?: Prisma.FloatFilter<"Grade"> | number
+  practicalWork?: Prisma.FloatFilter<"Grade"> | number
   assignment?: Prisma.FloatFilter<"Grade"> | number
   midtermExam?: Prisma.FloatFilter<"Grade"> | number
   finalExam?: Prisma.FloatFilter<"Grade"> | number
   practicalExam?: Prisma.FloatFilter<"Grade"> | number
   semester?: Prisma.IntFilter<"Grade"> | number
+  schoolYear?: Prisma.StringFilter<"Grade"> | string
   studentId?: Prisma.StringFilter<"Grade"> | string
   subjectId?: Prisma.StringFilter<"Grade"> | string
   createdAt?: Prisma.DateTimeFilter<"Grade"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Grade"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
-}, "id">
+}, "id" | "studentId_subjectId_semester_schoolYear">
 
 export type GradeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
   practicalExam?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  schoolYear?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -332,11 +374,14 @@ export type GradeScalarWhereWithAggregatesInput = {
   OR?: Prisma.GradeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.GradeScalarWhereWithAggregatesInput | Prisma.GradeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Grade"> | string
+  dailyTask?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
+  practicalWork?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
   assignment?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
   midtermExam?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
   finalExam?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
   practicalExam?: Prisma.FloatWithAggregatesFilter<"Grade"> | number
   semester?: Prisma.IntWithAggregatesFilter<"Grade"> | number
+  schoolYear?: Prisma.StringWithAggregatesFilter<"Grade"> | string
   studentId?: Prisma.StringWithAggregatesFilter<"Grade"> | string
   subjectId?: Prisma.StringWithAggregatesFilter<"Grade"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Grade"> | Date | string
@@ -345,11 +390,14 @@ export type GradeScalarWhereWithAggregatesInput = {
 
 export type GradeCreateInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutGradesInput
@@ -358,11 +406,14 @@ export type GradeCreateInput = {
 
 export type GradeUncheckedCreateInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   studentId: string
   subjectId: string
   createdAt?: Date | string
@@ -371,11 +422,14 @@ export type GradeUncheckedCreateInput = {
 
 export type GradeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutGradesNestedInput
@@ -384,11 +438,14 @@ export type GradeUpdateInput = {
 
 export type GradeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,11 +454,14 @@ export type GradeUncheckedUpdateInput = {
 
 export type GradeCreateManyInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   studentId: string
   subjectId: string
   createdAt?: Date | string
@@ -410,22 +470,28 @@ export type GradeCreateManyInput = {
 
 export type GradeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type GradeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -442,13 +508,23 @@ export type GradeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type GradeStudentIdSubjectIdSemesterSchoolYearCompoundUniqueInput = {
+  studentId: string
+  subjectId: string
+  semester: number
+  schoolYear: string
+}
+
 export type GradeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
   practicalExam?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  schoolYear?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -456,6 +532,8 @@ export type GradeCountOrderByAggregateInput = {
 }
 
 export type GradeAvgOrderByAggregateInput = {
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
@@ -465,11 +543,14 @@ export type GradeAvgOrderByAggregateInput = {
 
 export type GradeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
   practicalExam?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  schoolYear?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -478,11 +559,14 @@ export type GradeMaxOrderByAggregateInput = {
 
 export type GradeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
   practicalExam?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  schoolYear?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -490,6 +574,8 @@ export type GradeMinOrderByAggregateInput = {
 }
 
 export type GradeSumOrderByAggregateInput = {
+  dailyTask?: Prisma.SortOrder
+  practicalWork?: Prisma.SortOrder
   assignment?: Prisma.SortOrder
   midtermExam?: Prisma.SortOrder
   finalExam?: Prisma.SortOrder
@@ -591,11 +677,14 @@ export type FloatFieldUpdateOperationsInput = {
 
 export type GradeCreateWithoutSubjectInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutGradesInput
@@ -603,11 +692,14 @@ export type GradeCreateWithoutSubjectInput = {
 
 export type GradeUncheckedCreateWithoutSubjectInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   studentId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -644,11 +736,14 @@ export type GradeScalarWhereInput = {
   OR?: Prisma.GradeScalarWhereInput[]
   NOT?: Prisma.GradeScalarWhereInput | Prisma.GradeScalarWhereInput[]
   id?: Prisma.StringFilter<"Grade"> | string
+  dailyTask?: Prisma.FloatFilter<"Grade"> | number
+  practicalWork?: Prisma.FloatFilter<"Grade"> | number
   assignment?: Prisma.FloatFilter<"Grade"> | number
   midtermExam?: Prisma.FloatFilter<"Grade"> | number
   finalExam?: Prisma.FloatFilter<"Grade"> | number
   practicalExam?: Prisma.FloatFilter<"Grade"> | number
   semester?: Prisma.IntFilter<"Grade"> | number
+  schoolYear?: Prisma.StringFilter<"Grade"> | string
   studentId?: Prisma.StringFilter<"Grade"> | string
   subjectId?: Prisma.StringFilter<"Grade"> | string
   createdAt?: Prisma.DateTimeFilter<"Grade"> | Date | string
@@ -657,11 +752,14 @@ export type GradeScalarWhereInput = {
 
 export type GradeCreateWithoutStudentInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutGradesInput
@@ -669,11 +767,14 @@ export type GradeCreateWithoutStudentInput = {
 
 export type GradeUncheckedCreateWithoutStudentInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -707,11 +808,14 @@ export type GradeUpdateManyWithWhereWithoutStudentInput = {
 
 export type GradeCreateManySubjectInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   studentId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -719,11 +823,14 @@ export type GradeCreateManySubjectInput = {
 
 export type GradeUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutGradesNestedInput
@@ -731,11 +838,14 @@ export type GradeUpdateWithoutSubjectInput = {
 
 export type GradeUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -743,11 +853,14 @@ export type GradeUncheckedUpdateWithoutSubjectInput = {
 
 export type GradeUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -755,11 +868,14 @@ export type GradeUncheckedUpdateManyWithoutSubjectInput = {
 
 export type GradeCreateManyStudentInput = {
   id?: string
+  dailyTask?: number
+  practicalWork?: number
   assignment?: number
   midtermExam?: number
   finalExam?: number
   practicalExam?: number
   semester: number
+  schoolYear?: string
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -767,11 +883,14 @@ export type GradeCreateManyStudentInput = {
 
 export type GradeUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutGradesNestedInput
@@ -779,11 +898,14 @@ export type GradeUpdateWithoutStudentInput = {
 
 export type GradeUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -791,11 +913,14 @@ export type GradeUncheckedUpdateWithoutStudentInput = {
 
 export type GradeUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyTask?: Prisma.FloatFieldUpdateOperationsInput | number
+  practicalWork?: Prisma.FloatFieldUpdateOperationsInput | number
   assignment?: Prisma.FloatFieldUpdateOperationsInput | number
   midtermExam?: Prisma.FloatFieldUpdateOperationsInput | number
   finalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   practicalExam?: Prisma.FloatFieldUpdateOperationsInput | number
   semester?: Prisma.IntFieldUpdateOperationsInput | number
+  schoolYear?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -805,11 +930,14 @@ export type GradeUncheckedUpdateManyWithoutStudentInput = {
 
 export type GradeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  dailyTask?: boolean
+  practicalWork?: boolean
   assignment?: boolean
   midtermExam?: boolean
   finalExam?: boolean
   practicalExam?: boolean
   semester?: boolean
+  schoolYear?: boolean
   studentId?: boolean
   subjectId?: boolean
   createdAt?: boolean
@@ -820,11 +948,14 @@ export type GradeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type GradeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  dailyTask?: boolean
+  practicalWork?: boolean
   assignment?: boolean
   midtermExam?: boolean
   finalExam?: boolean
   practicalExam?: boolean
   semester?: boolean
+  schoolYear?: boolean
   studentId?: boolean
   subjectId?: boolean
   createdAt?: boolean
@@ -835,11 +966,14 @@ export type GradeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type GradeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  dailyTask?: boolean
+  practicalWork?: boolean
   assignment?: boolean
   midtermExam?: boolean
   finalExam?: boolean
   practicalExam?: boolean
   semester?: boolean
+  schoolYear?: boolean
   studentId?: boolean
   subjectId?: boolean
   createdAt?: boolean
@@ -850,18 +984,21 @@ export type GradeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 
 export type GradeSelectScalar = {
   id?: boolean
+  dailyTask?: boolean
+  practicalWork?: boolean
   assignment?: boolean
   midtermExam?: boolean
   finalExam?: boolean
   practicalExam?: boolean
   semester?: boolean
+  schoolYear?: boolean
   studentId?: boolean
   subjectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GradeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assignment" | "midtermExam" | "finalExam" | "practicalExam" | "semester" | "studentId" | "subjectId" | "createdAt" | "updatedAt", ExtArgs["result"]["grade"]>
+export type GradeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dailyTask" | "practicalWork" | "assignment" | "midtermExam" | "finalExam" | "practicalExam" | "semester" | "schoolYear" | "studentId" | "subjectId" | "createdAt" | "updatedAt", ExtArgs["result"]["grade"]>
 export type GradeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -883,11 +1020,14 @@ export type $GradePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    dailyTask: number
+    practicalWork: number
     assignment: number
     midtermExam: number
     finalExam: number
     practicalExam: number
     semester: number
+    schoolYear: string
     studentId: string
     subjectId: string
     createdAt: Date
@@ -1318,11 +1458,14 @@ export interface Prisma__GradeClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface GradeFieldRefs {
   readonly id: Prisma.FieldRef<"Grade", 'String'>
+  readonly dailyTask: Prisma.FieldRef<"Grade", 'Float'>
+  readonly practicalWork: Prisma.FieldRef<"Grade", 'Float'>
   readonly assignment: Prisma.FieldRef<"Grade", 'Float'>
   readonly midtermExam: Prisma.FieldRef<"Grade", 'Float'>
   readonly finalExam: Prisma.FieldRef<"Grade", 'Float'>
   readonly practicalExam: Prisma.FieldRef<"Grade", 'Float'>
   readonly semester: Prisma.FieldRef<"Grade", 'Int'>
+  readonly schoolYear: Prisma.FieldRef<"Grade", 'String'>
   readonly studentId: Prisma.FieldRef<"Grade", 'String'>
   readonly subjectId: Prisma.FieldRef<"Grade", 'String'>
   readonly createdAt: Prisma.FieldRef<"Grade", 'DateTime'>

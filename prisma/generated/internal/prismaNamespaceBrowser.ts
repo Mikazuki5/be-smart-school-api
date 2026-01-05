@@ -191,11 +191,14 @@ export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typ
 
 export const GradeScalarFieldEnum = {
   id: 'id',
+  dailyTask: 'dailyTask',
+  practicalWork: 'practicalWork',
   assignment: 'assignment',
   midtermExam: 'midtermExam',
   finalExam: 'finalExam',
   practicalExam: 'practicalExam',
   semester: 'semester',
+  schoolYear: 'schoolYear',
   studentId: 'studentId',
   subjectId: 'subjectId',
   createdAt: 'createdAt',

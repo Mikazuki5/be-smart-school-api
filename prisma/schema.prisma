@@ -75,9 +75,9 @@ model Teacher {
 }
 
 model Subject {
-  id        String             @id @default(uuid())
-  name      String
-  code      String             @unique
+  id   String @id @default(uuid())
+  name String
+  code String @unique
 
   teachers  TeacherOnSubject[]
   schedules Schedule[]
@@ -139,20 +139,26 @@ model Schedule {
 }
 
 model Grade {
-  id            String  @id @default(uuid())
-  assignment    Float   @default(0)
-  midtermExam   Float   @default(0) // UTS
-  finalExam     Float   @default(0) // UAS
-  practicalExam Float   @default(0)
+  id            String @id @default(uuid())
+  dailyTask     Float  @default(0)
+  practicalWork Float  @default(0)
+  assignment    Float  @default(0)
+  midtermExam   Float  @default(0) // UTS
+  finalExam     Float  @default(0) // UAS
+  practicalExam Float  @default(0)
   semester      Int
+  schoolYear    String @default("")
 
-  studentId     String
-  student       Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  subjectId     String
-  subject       Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([studentId, subjectId, semester, schoolYear])
 }
 
 model Attendance {
