@@ -18,6 +18,7 @@ export { getMySchedule } from "./academic/schedules/schedules-student.controller
 
 export { createClass } from "./academic/class/class-create.controller";
 export { getClassByDepartment } from "./academic/class/class-by-department.controller";
+export { getRankByClass } from "./academic/class/class-ranking.controller";
 
 export { createDepartment } from "./academic/department/department-create.controller";
 export { getAllDepartment } from "./academic/department/department.controller";

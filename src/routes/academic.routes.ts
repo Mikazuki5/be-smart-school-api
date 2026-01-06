@@ -23,6 +23,7 @@ import {
   createDepartment,
   createClass,
   getClassByDepartment,
+  getRankByClass,
 } from "@controllers/index";
 
 const router = Router();
@@ -98,6 +99,11 @@ router.get(
   "/class/department/:departmentId",
   authorizeRole([Role.ADMIN]),
   getClassByDepartment
+);
+router.get(
+  "/ranking/:classId",
+  authorizeRole([Role.ADMIN, Role.TEACHER]),
+  getRankByClass
 );
 
 export default router;
