@@ -19,6 +19,12 @@ enum Role {
   STUDENT
 }
 
+enum TargetAudience {
+  ALL
+  TEACHER
+  STUDENT
+}
+
 model User {
   id       String   @id @default(uuid())
   username String   @unique
@@ -27,6 +33,7 @@ model User {
   role     Role
   student  Student?
   teacher  Teacher?
+  announcement  Announcement[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -186,3 +193,15 @@ model Payment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Announcement {
+  id  String  @id @default(uuid())
+  title String
+  content String @db.Text
+  target  TargetAudience  @default(ALL)
+  authorId  String
+  author  User  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+

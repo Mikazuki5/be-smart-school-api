@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import {
   AcademicRoutes,
+  AnnouncementRoutes,
   AttendanceRoutes,
   AuthRoutes,
   DashboardRoutes,
@@ -32,6 +33,7 @@ app.use("/api/student", StudentRoutes);
 app.use("/api/finance", FinanceRoutes);
 app.use("/api/teacher", TeacherRoutes);
 app.use("/api/attendance", AttendanceRoutes);
+app.use("/api/announcement", AnnouncementRoutes);
 
 const PORT = process.env.PORT || 3000;
 

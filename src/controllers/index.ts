@@ -30,3 +30,6 @@ export { getAllSubjects } from "./academic/subject/subject.controller";
 export { createSubjectWithAssigmentTeacher } from "./academic/subject/subject-create-teacher-assignment.controller";
 
 export { login } from "./auth/auth-login.controller";
+
+export { getAnnouncementForUser } from "./admin/announcement/announcement.controller";
+export { createAnnouncement } from "./admin/announcement/announcement-create.controller";

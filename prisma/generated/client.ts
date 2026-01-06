@@ -94,3 +94,8 @@ export type Attendance = Prisma.AttendanceModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model Announcement
+ * 
+ */
+export type Announcement = Prisma.AnnouncementModel

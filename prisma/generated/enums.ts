@@ -16,3 +16,12 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const TargetAudience = {
+  ALL: 'ALL',
+  TEACHER: 'TEACHER',
+  STUDENT: 'STUDENT'
+} as const
+
+export type TargetAudience = (typeof TargetAudience)[keyof typeof TargetAudience]
