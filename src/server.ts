@@ -35,8 +35,13 @@ app.use("/api/teacher", TeacherRoutes);
 app.use("/api/attendance", AttendanceRoutes);
 app.use("/api/announcement", AnnouncementRoutes);
 
-const PORT = process.env.PORT || 3000;
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  
+  app.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
-});
+export default app;
+
