@@ -61,7 +61,8 @@ export const ModelName = {
   Schedule: 'Schedule',
   Grade: 'Grade',
   Attendance: 'Attendance',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Announcement: 'Announcement'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -117,6 +118,7 @@ export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof Cl
 
 export const TeacherScalarFieldEnum = {
   id: 'id',
+  nip: 'nip',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
@@ -136,6 +138,7 @@ export type TeacherScalarFieldEnum = (typeof TeacherScalarFieldEnum)[keyof typeo
 export const SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -155,6 +158,7 @@ export type TeacherOnSubjectScalarFieldEnum = (typeof TeacherOnSubjectScalarFiel
 
 export const StudentScalarFieldEnum = {
   id: 'id',
+  nisn: 'nisn',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
@@ -188,11 +192,14 @@ export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typ
 
 export const GradeScalarFieldEnum = {
   id: 'id',
+  dailyTask: 'dailyTask',
+  practicalWork: 'practicalWork',
   assignment: 'assignment',
   midtermExam: 'midtermExam',
   finalExam: 'finalExam',
   practicalExam: 'practicalExam',
   semester: 'semester',
+  schoolYear: 'schoolYear',
   studentId: 'studentId',
   subjectId: 'subjectId',
   createdAt: 'createdAt',
@@ -226,6 +233,19 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const AnnouncementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  target: 'target',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
 
 
 export const SortOrder = {

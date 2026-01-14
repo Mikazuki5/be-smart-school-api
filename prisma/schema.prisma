@@ -19,6 +19,12 @@ enum Role {
   STUDENT
 }
 
+enum TargetAudience {
+  ALL
+  TEACHER
+  STUDENT
+}
+
 model User {
   id       String   @id @default(uuid())
   username String   @unique
@@ -27,9 +33,10 @@ model User {
   role     Role
   student  Student?
   teacher  Teacher?
+  announcement  Announcement[]
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Department {
@@ -37,8 +44,8 @@ model Department {
   name    String
   classes Class[]
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Class {
@@ -50,12 +57,13 @@ model Class {
   students     Student[]
   schedules    Schedule[]
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Teacher {
   id             String             @id @default(uuid())
+  nip            String?
   firstName      String
   lastName       String?
   userId         String             @unique
@@ -67,21 +75,23 @@ model Teacher {
   pictureProfile String?
   religion       String?
   phoneNumber    String?
-  status         String            @default("Honorer")
+  status         String             @default("Honorer")
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Subject {
-  id        String             @id @default(uuid())
-  name      String
+  id   String @id @default(uuid())
+  name String
+  code String @unique
+
   teachers  TeacherOnSubject[]
   schedules Schedule[]
   grades    Grade[]
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Many-to-Many Table: One Teacher can have many Subjects, One Subject can have many Teachers
@@ -91,14 +101,15 @@ model TeacherOnSubject {
   teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
   subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([teacherId, subjectId])
 }
 
 model Student {
   id             String       @id @default(uuid())
+  nisn           String?
   firstName      String
   lastName       String?
   userId         String       @unique
@@ -114,8 +125,8 @@ model Student {
   religion       String?
   phoneNumber    String?
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Schedule {
@@ -130,24 +141,31 @@ model Schedule {
   teacherId String
   teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Grade {
-  id            String  @id @default(uuid())
-  assignment    Float   @default(0)
-  midtermExam   Float   @default(0) // UTS
-  finalExam     Float   @default(0) // UAS
-  practicalExam Float   @default(0)
+  id            String @id @default(uuid())
+  dailyTask     Float  @default(0)
+  practicalWork Float  @default(0)
+  assignment    Float  @default(0)
+  midtermExam   Float  @default(0) // UTS
+  finalExam     Float  @default(0) // UAS
+  practicalExam Float  @default(0)
   semester      Int
-  studentId     String
-  student       Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  subjectId     String
-  subject       Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  schoolYear    String @default("")
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, subjectId, semester, schoolYear])
 }
 
 model Attendance {
@@ -157,8 +175,8 @@ model Attendance {
   studentId String
   student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([date, studentId])
 }
@@ -172,6 +190,18 @@ model Payment {
   studentId String
   student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) // Otomatis saat data dibuat
-  updatedAt DateTime @updatedAt // Otomatis saat data diubah
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
+model Announcement {
+  id  String  @id @default(uuid())
+  title String
+  content String @db.Text
+  target  TargetAudience  @default(ALL)
+  authorId  String
+  author  User  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+

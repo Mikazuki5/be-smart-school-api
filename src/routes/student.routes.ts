@@ -1,9 +1,10 @@
 import { authorizeRole, verifyToken } from "@middleware/authMiddleware";
 import { Router } from "express";
 import { Role } from "../../prisma/generated/enums";
-import { createStudent, deleteStudentData, getAllStudentData, getDetailStudent, getMyPaymentStatus, getMyReportCard, getMySchedule, updateStudentData } from "@controllers/studentController";
+import { createStudent, deleteStudentData, getAllStudentData, getDetailStudent, getMyPaymentStatus, getMyReportCard, updateStudentData } from "@controllers/studentController";
 import { validationMiddleware } from "@middleware/validationMiddleware";
 import { CreateStudentDTO, UpdateStudentDTO } from "@dto/student.dto";
+import { getMySchedule } from "@controllers/index";
 
 const router = Router();
 

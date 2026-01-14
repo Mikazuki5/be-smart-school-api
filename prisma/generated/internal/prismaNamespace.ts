@@ -394,7 +394,8 @@ export const ModelName = {
   Schedule: 'Schedule',
   Grade: 'Grade',
   Attendance: 'Attendance',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Announcement: 'Announcement'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "department" | "class" | "teacher" | "subject" | "teacherOnSubject" | "student" | "schedule" | "grade" | "attendance" | "payment"
+    modelProps: "user" | "department" | "class" | "teacher" | "subject" | "teacherOnSubject" | "student" | "schedule" | "grade" | "attendance" | "payment" | "announcement"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1229,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Announcement: {
+      payload: Prisma.$AnnouncementPayload<ExtArgs>
+      fields: Prisma.AnnouncementFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnnouncementFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnnouncementFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        findFirst: {
+          args: Prisma.AnnouncementFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnnouncementFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        findMany: {
+          args: Prisma.AnnouncementFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>[]
+        }
+        create: {
+          args: Prisma.AnnouncementCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        createMany: {
+          args: Prisma.AnnouncementCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AnnouncementCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>[]
+        }
+        delete: {
+          args: Prisma.AnnouncementDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        update: {
+          args: Prisma.AnnouncementUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        deleteMany: {
+          args: Prisma.AnnouncementDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnnouncementUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AnnouncementUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>[]
+        }
+        upsert: {
+          args: Prisma.AnnouncementUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
+        }
+        aggregate: {
+          args: Prisma.AnnouncementAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnnouncement>
+        }
+        groupBy: {
+          args: Prisma.AnnouncementGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnnouncementGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnnouncementCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnnouncementCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1304,6 +1379,7 @@ export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof Cl
 
 export const TeacherScalarFieldEnum = {
   id: 'id',
+  nip: 'nip',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
@@ -1323,6 +1399,7 @@ export type TeacherScalarFieldEnum = (typeof TeacherScalarFieldEnum)[keyof typeo
 export const SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1342,6 +1419,7 @@ export type TeacherOnSubjectScalarFieldEnum = (typeof TeacherOnSubjectScalarFiel
 
 export const StudentScalarFieldEnum = {
   id: 'id',
+  nisn: 'nisn',
   firstName: 'firstName',
   lastName: 'lastName',
   userId: 'userId',
@@ -1375,11 +1453,14 @@ export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typ
 
 export const GradeScalarFieldEnum = {
   id: 'id',
+  dailyTask: 'dailyTask',
+  practicalWork: 'practicalWork',
   assignment: 'assignment',
   midtermExam: 'midtermExam',
   finalExam: 'finalExam',
   practicalExam: 'practicalExam',
   semester: 'semester',
+  schoolYear: 'schoolYear',
   studentId: 'studentId',
   subjectId: 'subjectId',
   createdAt: 'createdAt',
@@ -1413,6 +1494,19 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const AnnouncementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  target: 'target',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1521,6 +1615,20 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
+
+/**
+ * Reference to a field of type 'TargetAudience'
+ */
+export type EnumTargetAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TargetAudience'>
+    
+
+
+/**
+ * Reference to a field of type 'TargetAudience[]'
+ */
+export type ListEnumTargetAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TargetAudience[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1627,6 +1735,7 @@ export type GlobalOmitConfig = {
   grade?: Prisma.GradeOmit
   attendance?: Prisma.AttendanceOmit
   payment?: Prisma.PaymentOmit
+  announcement?: Prisma.AnnouncementOmit
 }
 
 /* Types for Logging */

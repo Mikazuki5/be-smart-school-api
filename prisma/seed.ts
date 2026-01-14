@@ -48,10 +48,11 @@ async function main() {
   });
 
   // --- 4. SEED SUBJECTS ---
-  const webSubject = await prisma.subject.create({ data: { name: 'Web Programming' } });
-  const dbSubject = await prisma.subject.create({ data: { name: 'Database Systems' } });
-  const ddp = await prisma.subject.create({ data: { name: 'Hospitality Basics' } });
-  const acs = await prisma.subject.create({ data: { name: 'Fundamentals of Accounting and Institutional Finance' } });
+  const webSubject = await prisma.subject.create({ data: { name: 'Web Programming', code: 'WP' } });
+  const dbSubject = await prisma.subject.create({ data: { name: 'Database Systems', code: 'DS' } });
+  const ddp = await prisma.subject.create({ data: { name: 'Hospitality Basics', code: 'HB' } });
+  const acs = await prisma.subject.create({ data: { name: 'Fundamentals of Accounting and Institutional Finance', code: 'FAIF' } });
+  
 
   // --- 5. SEED TEACHERS & MANY-TO-MANY SUBJECTS ---
   const teacherUser1 = await prisma.user.create({
@@ -222,9 +223,13 @@ async function main() {
     ],
   });
 
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
   // --- 10. SEED ATTENDANCE ---
   await prisma.attendance.create({
     data: {
+      id: `${today.toISOString().split(`T`)[0]}-${joni.id}`,
       studentId: joni.id,
       status: 'PRESENT',
       date: new Date(),

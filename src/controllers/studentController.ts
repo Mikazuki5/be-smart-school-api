@@ -220,47 +220,6 @@ export const deleteStudentData = async (req: Request, res: Response) => {
   }
 };
 
-export const getMySchedule = async (req: AuthRequest, res: Response) => {
-  try {
-    const userId = req.user?.id;
-
-    const student = await prisma.student.findUnique({
-      where: { userId },
-      select: { classId: true },
-    });
-
-    if (!student)
-      return res.status(404).json({ message: "Student profile not found!" });
-
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const today = days[new Date().getDay()];
-
-    const schedule = await prisma.schedule.findMany({
-      where: {
-        classId: student.classId,
-        day: today,
-      },
-      include: {
-        subject: { select: { name: true } },
-        teacher: { select: { firstName: true } },
-      },
-      orderBy: { startTime: "asc" },
-    });
-
-    res.json({ today, schedule });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 export const getMyReportCard = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user?.id;
