@@ -33,3 +33,7 @@ export { login } from "./auth/auth-login.controller";
 
 export { getAnnouncementForUser } from "./admin/announcement/announcement.controller";
 export { createAnnouncement } from "./admin/announcement/announcement-create.controller";
+
+export { getFinancialSummary } from "./finance/finance-get-summary.controller";
+export { generateMonthlyInvoice } from "./finance/finance-generate-invoice.controller";
+export { updatePaymentStatus } from "./finance/finance-update-payment.controller";
